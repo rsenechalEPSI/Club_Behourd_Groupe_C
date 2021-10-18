@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BehourdApp.Console", "BehourdApp.Console\BehourdApp.Console.csproj", "{E027FFDB-898B-42D6-B39B-A518AB9E0DA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BehourdApp.ConsoleApp", "BehourdApp.Console\BehourdApp.ConsoleApp.csproj", "{E027FFDB-898B-42D6-B39B-A518AB9E0DA9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BehourdApp.Test", "BehourdApp.Test\BehourdApp.Test.csproj", "{A347453B-2554-49F0-9939-69AC8EADE86C}"
 EndProject

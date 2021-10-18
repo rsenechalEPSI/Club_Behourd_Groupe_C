@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BehourdApp.Console.Classes
+namespace BehourdApp.ConsoleApp.Classes
 {
     public class Session
     {
         public List<Partie> Parties { get; set; }
+
     }
 }

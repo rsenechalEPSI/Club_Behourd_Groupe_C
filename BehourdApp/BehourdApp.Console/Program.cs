@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BehourdApp.ConsoleApp.Classes;
+using System;
 
 namespace BehourdApp.Console
 {
@@ -6,7 +7,8 @@ namespace BehourdApp.Console
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Jouexur joueur = new Joueur();
+            System.Console.WriteLine("test");
         }
     }
 }
