@@ -7,7 +7,7 @@ namespace BehourdApp.Console
     {
         static void Main(string[] args)
         {
-            Jouexur joueur = new Joueur();
+            Joueur joueur = new Joueur();
             System.Console.WriteLine("test");
         }
     }
