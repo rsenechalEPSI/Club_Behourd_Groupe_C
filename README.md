@@ -5,4 +5,4 @@ Groupe composé de :
  - Antoine Padé -> apade17
  - Romain Sénéchal -> rsenechalEPSI
 
-Pour le développement, nous sommes partis sur une solution en java script
+Pour le développement, nous sommes partis sur une solution en c#
