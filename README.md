@@ -1,5 +1,5 @@
 # Club_Behourd_Groupe_C
-Groue composé de : 
+Groupe composé de : 
  - Sophia Laloux
  - Clément Dauchez
  - Antoine Padé
