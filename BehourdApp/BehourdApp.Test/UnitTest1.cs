@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BehourdApp.ConsoleApp.Classes;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 
@@ -12,6 +13,7 @@ namespace BehourdApp.Test
         public void Creation_Joueur()
         {
             Joueur joueur = new Joueur();
+            Assert.IsTrue(joueur != null);
         }
     }
 }
