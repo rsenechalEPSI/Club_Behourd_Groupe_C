@@ -1,6 +1,6 @@
 # Club_Behourd_Groupe_C
 Groupe composé de : 
- - Sophia Laloux -> SoPupuko
+ - Sophia Laloux -> SoPopuko
  - Clément Dauchez -> Melowee
  - Antoine Padé -> apade17
  - Romain Sénéchal -> rsenechalEPSI
