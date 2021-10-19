@@ -19,7 +19,6 @@ namespace BehourdApp.Test
         [TestMethod]
         public void Creation_Duel()
         {
-            
             List<Joueur> joueurs = ExcelData.JoueursBuilder(2);
 
             Session session = new Session();
@@ -30,6 +29,21 @@ namespace BehourdApp.Test
             Assert.IsNotNull(partie);
             Assert.IsNotNull(session.GetEquipes());
             
+        }
+
+        [TestMethod]
+        public void Creation_5_vs_5()
+        {
+            List<Joueur> joueurs5vs5 = ExcelData.JoueursBuilder(5);
+
+            Session session = new Session();
+
+            Partie partie = session.CreatePartie(joueurs5vs5);
+
+            Assert.IsNotNull(session);
+            Assert.IsNotNull(partie);
+            Assert.IsNotNull(session.GetEquipes());
+
         }
     }
 }
