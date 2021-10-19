@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace BehourdApp.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class TestSession
     {
         [TestMethod]
         public void Creation_Joueur()
@@ -19,18 +19,16 @@ namespace BehourdApp.Test
         [TestMethod]
         public void Creation_Duel()
         {
-            ExcelData excel = new ExcelData();
-            List<Joueur> joueurs = excel.Joueurs;
+            
+            List<Joueur> joueurs = ExcelData.JoueursBuilder(2);
 
             Session session = new Session();
 
-            session.CreatePartie(joueurs);
+            Partie partie = session.CreatePartie(joueurs);
 
             Assert.IsNotNull(session);
-            Assert.IsNotNull(session.GetParties());
+            Assert.IsNotNull(partie);
             Assert.IsNotNull(session.GetEquipes());
-            
-
             
         }
     }

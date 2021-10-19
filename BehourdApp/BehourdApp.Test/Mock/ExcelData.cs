@@ -7,29 +7,28 @@ using System.Threading.Tasks;
 
 namespace BehourdApp.Test.Mock
 {
-    public class ExcelData
+    public static class ExcelData
     {
-        public List<Joueur> Joueurs { get; set; }
-
-        public ExcelData()
+        public static List<Joueur> JoueursBuilder(int nbJoueur)
         {
-            Joueur j1 = new Joueur()
-            {
-                Nom = "Sénéchal",
-                Prenom = "Romain",
-                AnneeAdhesion = 1999,
-                Poids = 250,
-            };
-            Joueur j2 = new Joueur()
-            {
-                Nom = "Dauchez",
-                Prenom = "Clément",
-                AnneeAdhesion = 1999,
-                Poids = 35,
-            };
+            List<Joueur> joueurs = new List<Joueur>();
 
-            this.Joueurs.Add(j1);
-            this.Joueurs.Add(j2);
+            for (int i = 0; i<nbJoueur; i++)
+            {
+                Random r = new Random();
+                int anneeAleatoire = r.Next(1990, 2021);
+                int poidsAleatoire = r.Next(60, 130);
+
+                joueurs.Add(new Joueur()
+                {
+                    Prenom = "Joueur",
+                    Nom = i.ToString(),
+                    AnneeAdhesion = anneeAleatoire,
+                    Poids = poidsAleatoire
+                });
+            }
+
+            return joueurs;
         }
     }
 }

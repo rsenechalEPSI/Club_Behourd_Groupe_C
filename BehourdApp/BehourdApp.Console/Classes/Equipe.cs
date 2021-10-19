@@ -9,5 +9,10 @@ namespace BehourdApp.ConsoleApp.Classes
     public class Equipe
     {
         public List<Joueur> Joueurs { get; set; }
+
+        public Equipe()
+        {
+            Joueurs = new List<Joueur>();
+        }
     }
 }

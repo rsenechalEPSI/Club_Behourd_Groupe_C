@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mock\ExcelData.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="TestSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
