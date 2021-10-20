@@ -17,7 +17,7 @@ namespace BehourdApp.ConsoleApp.Classes
 
         public Partie CreatePartie(List<Joueur> joueurs)
         {
-            if(joueurs.Count == 2)
+            if (joueurs.Count == 2)
             {
                 Equipe e1 = new Equipe();
                 Equipe e2 = new Equipe();
@@ -41,9 +41,9 @@ namespace BehourdApp.ConsoleApp.Classes
         public List<Equipe> GetEquipes()
         {
             List<Equipe> equipes = new List<Equipe>();
-            if(Parties != null && Parties.Any())
+            if (Parties != null && Parties.Any())
             {
-                foreach(Partie partie in Parties)
+                foreach (Partie partie in Parties)
                 {
                     equipes.Add(partie.Equipe1);
                     equipes.Add(partie.Equipe2);
@@ -52,5 +52,29 @@ namespace BehourdApp.ConsoleApp.Classes
 
             return equipes;
         }
+
+        public void Equilibrage(List<Joueur> joueurs, Equipe e1, Equipe e2)
+        {
+            if (joueurs.Any())
+            {
+                List<Joueur> joueursEquipe1 = new List<Joueur>();
+                List<Joueur> joueursEquipe2 = new List<Joueur>();
+                joueurs = joueurs.OrderByDescending(j => j.Poids).ToList();
+
+                for (int i = 0; i < joueurs.Count; i++)
+                {
+                    //if(i < (joueurs.Count / 2))
+                    //{
+
+                    //}
+                    joueursEquipe1.Add(joueurs[i]);
+                    joueursEquipe1.Add(joueurs[joueurs.Count-i]);
+                }
+
+            }
+
+        }
+
+
     }
 }
