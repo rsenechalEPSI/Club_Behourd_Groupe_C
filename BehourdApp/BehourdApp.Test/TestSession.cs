@@ -1,12 +1,9 @@
-﻿using BehourdApp.Test.Mock;
+﻿using BehourdApp.ConsoleApp.Classes;
+using BehourdApp.Test.Mock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-<<<<<<< HEAD
-using System.Linq;
-=======
-using BehourdApp.ConsoleApp;
->>>>>>> 8075630 (test équilibrage rouge pas fini)
+
 
 namespace BehourdApp.Test
 {
