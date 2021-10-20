@@ -31,5 +31,19 @@ namespace BehourdApp.Test
             Assert.IsNotNull(session.GetEquipes());
             
         }
+
+        [TestMethod]
+        public void Creation_16_vs_16()
+        {
+            List<Joueur> joueurs = ExcelData.JoueursBuilder(32);
+
+            Session session = new Session();
+
+            Partie partie = session.CreatePartie(joueurs);
+            Assert.IsNotNull(session);
+            Assert.IsNotNull(partie);
+            Assert.IsNotNull(session.GetEquipes());
+
+        }
     }
 }
