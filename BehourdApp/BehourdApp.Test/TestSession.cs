@@ -38,6 +38,38 @@ namespace BehourdApp.Test
             
         }
 
+        public static List<List<T>> GetAllCombos<T>(List<T> list)
+        {
+            int comboCount = (int)Math.Pow(2, list.Count) - 1;
+            List<List<T>> result = new List<List<T>>();
+            for (int i = 1; i < comboCount + 1; i++)
+            {
+                // make each combo here
+                result.Add(new List<T>());
+                for (int j = 0; j < list.Count; j++)
+                {
+                    if ((i >> j) % 2 != 0)
+                        result.Last().Add(list[j]);
+                }
+            }
+            return result;
+        }
+
+        [TestMethod]
+        public void Verification_Equilibrage_Equipes()
+        {
+            List<Joueur> joueurs = ExcelData.JoueursBuilder(11);
+
+            Session session = new Session();
+
+            Partie partie = session.CreatePartie(joueurs);
+
+            List<List<Joueur>> test = GetAllCombos(joueurs);
+            
+            Assert.IsNotNull(test);
+        }
+
+        /*
         [TestMethod]
         public void Creation_10_vs_10()
         {
@@ -57,6 +89,6 @@ namespace BehourdApp.Test
             Assert.AreNotSame(j1, j2);
 
 
-        }
+        }*/
     }
 }
