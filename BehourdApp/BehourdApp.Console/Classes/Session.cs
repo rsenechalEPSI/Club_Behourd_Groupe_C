@@ -17,25 +17,48 @@ namespace BehourdApp.ConsoleApp.Classes
 
         public Partie CreatePartie(List<Joueur> joueurs)
         {
-            if(joueurs.Count == 2)
+            if (joueurs.Any())
             {
+                // le nombre d'équipes est toujours de 2
                 Equipe e1 = new Equipe();
                 Equipe e2 = new Equipe();
 
-                e1.Joueurs.Add(joueurs.First());
-                e2.Joueurs.Add(joueurs.Last());
+                Equilibrage(e1, e2, joueurs);
 
+                // créer une partie
                 Partie partie = new Partie();
                 partie.Equipe1 = e1;
                 partie.Equipe2 = e2;
 
                 Parties.Add(partie);
                 return partie;
-            }
+
+                /*if (joueurs.Count == 2)
+                {
+                    e1.Joueurs.Add(joueurs.First());
+                    e2.Joueurs.Add(joueurs.Last());
+
+                    Partie partie = new Partie();
+                    partie.Equipe1 = e1;
+                    partie.Equipe2 = e2;
+
+                    Parties.Add(partie);
+                    return partie;
+                }
+                else
+                {
+
+                }*/
+            } 
             else
             {
-                throw new Exception("Le nombre de joueurs est supérieur a 2.");
+                throw new Exception("Il n'y a pas de joueurs !");
             }
+        }
+
+        private void Equilibrage(Equipe e1, Equipe e2, List<Joueur> joueurs)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Equipe> GetEquipes()

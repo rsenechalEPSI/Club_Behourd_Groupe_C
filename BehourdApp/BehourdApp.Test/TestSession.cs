@@ -20,7 +20,6 @@ namespace BehourdApp.Test
         [TestMethod]
         public void Creation_Duel()
         {
-            
             List<Joueur> joueurs = ExcelData.JoueursBuilder(2);
 
             Session session = new Session();
@@ -68,27 +67,5 @@ namespace BehourdApp.Test
             
             Assert.IsNotNull(test);
         }
-
-        /*
-        [TestMethod]
-        public void Creation_10_vs_10()
-        {
-
-            List<Joueur> joueurs = ExcelData.JoueursBuilder(20);
-
-            Session session = new Session();
-
-            Partie partie = session.CreatePartie(joueurs);
-
-            List<Equipe> equipes = session.GetEquipes();
-
-            Assert.AreEqual(2, equipes.Count);
-
-            Joueur j1 = joueurs.First();
-            Joueur j2 = joueurs.Last();
-            Assert.AreNotSame(j1, j2);
-
-
-        }*/
     }
 }
