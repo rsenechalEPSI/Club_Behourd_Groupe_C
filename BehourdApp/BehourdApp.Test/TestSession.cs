@@ -58,5 +58,27 @@ namespace BehourdApp.Test
 
 
         }
+
+        [TestMethod]
+        public void Test_EquilibragePourVoir()
+        {
+
+            List<Joueur> joueurs = ExcelData.JoueursBuilder(10);
+
+
+            Session session = new Session();
+
+            session.Equilibrage(joueurs, new Equipe(), new Equipe());
+
+            List<Equipe> equipes = session.GetEquipes();
+
+            Assert.AreEqual(2, equipes.Count);
+
+            Joueur j1 = joueurs.First();
+            Joueur j2 = joueurs.Last();
+            Assert.AreNotSame(j1, j2);
+
+
+        }
     }
 }

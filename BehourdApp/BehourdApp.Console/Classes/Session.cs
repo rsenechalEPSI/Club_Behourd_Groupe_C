@@ -53,23 +53,77 @@ namespace BehourdApp.ConsoleApp.Classes
             return equipes;
         }
 
-        public void Equilibrage(List<Joueur> joueurs, Equipe e1, Equipe e2)
+        public void Equilibrage(List<Joueur> joueurs, Equipe e1, Equipe e2, int totalMoyenne = 0, bool firstFilter = true)
         {
             if (joueurs.Any())
             {
                 List<Joueur> joueursEquipe1 = new List<Joueur>();
                 List<Joueur> joueursEquipe2 = new List<Joueur>();
-                joueurs = joueurs.OrderByDescending(j => j.Poids).ToList();
+
+                if (firstFilter)
+                {
+                    joueurs = joueurs.OrderBy(j => j.Poids).ToList();
+                }
 
                 for (int i = 0; i < joueurs.Count; i++)
                 {
-                    //if(i < (joueurs.Count / 2))
-                    //{
+                    if (joueursEquipe1.Count < (joueurs.Count / 2))
+                    {
+                        joueursEquipe1.Add(joueurs[i]);
+                        if(joueursEquipe1.Count + 1 < (joueurs.Count / 2))
+                        {
+                            joueursEquipe1.Add(joueurs[(joueurs.Count - 1) - i]);
 
-                    //}
-                    joueursEquipe1.Add(joueurs[i]);
-                    joueursEquipe1.Add(joueurs[joueurs.Count-i]);
+                        }
+                    }
+                    else
+                    {
+                        joueursEquipe2.Add(joueurs[i]);
+                    }
                 }
+
+                int moyenneEquipe1 = 0;
+                int moyenneEquipe2 = 0;
+                foreach (Joueur joueur in joueursEquipe1)
+                {
+                    moyenneEquipe1 += joueur.Poids;
+                }
+                foreach (Joueur joueur in joueursEquipe2)
+                {
+                    moyenneEquipe2 += joueur.Poids;
+                }
+
+                moyenneEquipe1 = moyenneEquipe1 / joueursEquipe1.Count;
+                moyenneEquipe2 = moyenneEquipe2 / joueursEquipe2.Count;
+
+                int newTotalMoyenne = moyenneEquipe1 - moyenneEquipe2;
+
+
+                List<Joueur> equipesConfondues = new List<Joueur>();
+                joueursEquipe1.ForEach(j => equipesConfondues.Add(j));
+                joueursEquipe2.ForEach(j => equipesConfondues.Add(j));
+
+                if (totalMoyenne != 0)
+                {
+                    if (totalMoyenne < newTotalMoyenne)
+                    {
+                        e1.Joueurs = joueursEquipe1;
+                        e2.Joueurs = joueursEquipe2;
+                    }
+                    else
+                    {
+                        if(newTotalMoyenne < -10 && newTotalMoyenne > 10)
+                        {
+                            e1.Joueurs = joueursEquipe1;
+                            e2.Joueurs = joueursEquipe2;
+                        }
+                        else
+                        {
+                            Equilibrage(equipesConfondues, e1, e2, newTotalMoyenne, false);
+                        }
+                    }
+                }
+
 
             }
 
