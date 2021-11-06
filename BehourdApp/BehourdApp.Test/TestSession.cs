@@ -37,7 +37,7 @@ namespace BehourdApp.Test
             
         }
 
-        public static List<List<T>> GetAllCombos<T>(List<T> list)
+        public static List<List<List<T>>> GetAllCombos<T>(List<T> list)
         {
             int comboCount = (int)Math.Pow(2, list.Count) - 1;
             List<List<T>> result = new List<List<T>>();
@@ -51,7 +51,17 @@ namespace BehourdApp.Test
                         result.Last().Add(list[j]);
                 }
             }
-            return result;
+
+            List<List<List<T>>> vraiReturn = new List<List<List<T>>>();
+            for (int i = 0; i < result.Count; i++)
+            {
+                List<List<T>> pair = new List<List<T>>();
+                pair.Add(result[i]);
+                pair.Add(list.Except(result[i]).ToList());
+                vraiReturn.Add(pair);
+            } 
+
+            return vraiReturn;
         }
 
         [TestMethod]
@@ -59,13 +69,70 @@ namespace BehourdApp.Test
         {
             List<Joueur> joueurs = ExcelData.JoueursBuilder(11);
 
-            Session session = new Session();
+            //Session session = new Session();
 
-            Partie partie = session.CreatePartie(joueurs);
+            //Partie partie = session.CreatePartie(joueurs);
 
-            List<List<Joueur>> test = GetAllCombos(joueurs);
-            
-            Assert.IsNotNull(test);
+            // Récupération de toutes les équipes possibles à partir de la liste des joueurs
+            List<List<List<Joueur>>> toutesLesEquipesPossibles = GetAllCombos(joueurs);
+
+            // Suppression des équipes dont l'écart de joueurs n'est pas le minimal
+            // (si le nombre de joueurs est pair, l'écart est de 0, si il est impair, 1)
+            toutesLesEquipesPossibles = toutesLesEquipesPossibles.Where(equipe => Math.Abs(equipe[0].Count() - equipe[1].Count()) <= 1).ToList();
+
+            // Détermintion des ecarts les plus petits possibles pour les moyennes de poids sur les équipes restantes et filtrage
+            float ecartMoyennePoidsMin = float.MaxValue;
+
+            List<List<List<Joueur>>> equipesFiltreeParPoids = new List<List<List<Joueur>>>();
+
+            for (int i = 0; i < toutesLesEquipesPossibles.Count(); i++)
+            {
+                int sommePoidsEquipe1 = toutesLesEquipesPossibles[i][0].Sum(joueur => joueur.Poids);
+                int sommePoidsEquipe2 = toutesLesEquipesPossibles[i][1].Sum(joueur => joueur.Poids);
+
+                float ecartMoyennePoids = Math.Abs((sommePoidsEquipe1 / toutesLesEquipesPossibles[i][0].Count()) - (sommePoidsEquipe2 / toutesLesEquipesPossibles[i][1].Count()));
+
+                if (ecartMoyennePoids < ecartMoyennePoidsMin)
+                {
+                    ecartMoyennePoidsMin = ecartMoyennePoids;
+                    equipesFiltreeParPoids.Clear();
+                }
+
+                if (ecartMoyennePoids == ecartMoyennePoidsMin)
+                {
+                    equipesFiltreeParPoids.Add(toutesLesEquipesPossibles[i]);
+                }
+
+            }
+
+            // Détermintion des ecarts les plus petits possibles pour les moyennes d'année d'adésion sur les équipes restantes et filtrage
+            float ecartMoyenneAnneeAdhesionMin = float.MaxValue;
+
+            List<List<List<Joueur>>> equipesFiltreeParAnnee = new List<List<List<Joueur>>>();
+
+            for (int i = 0; i < equipesFiltreeParPoids.Count(); i++)
+            {
+                int sommeAnneeAdhesionEquipe1 = equipesFiltreeParPoids[i][0].Sum(joueur => joueur.AnneeAdhesion);
+                int sommeAnneeAdhesionEquipe2 = equipesFiltreeParPoids[i][1].Sum(joueur => joueur.AnneeAdhesion);
+
+                float ecartMoyenneAnneeAdesion = Math.Abs((sommeAnneeAdhesionEquipe1 / toutesLesEquipesPossibles[i][0].Count()) - (sommeAnneeAdhesionEquipe2 / toutesLesEquipesPossibles[i][1].Count()));
+
+                if (ecartMoyenneAnneeAdesion < ecartMoyenneAnneeAdhesionMin)
+                {
+                    ecartMoyenneAnneeAdhesionMin = ecartMoyenneAnneeAdesion;
+                    equipesFiltreeParAnnee.Clear();
+                }
+
+                if (ecartMoyenneAnneeAdesion == ecartMoyenneAnneeAdhesionMin)
+                {
+                    equipesFiltreeParAnnee.Add(toutesLesEquipesPossibles[i]);
+                }
+            }
+
+            // Tester si l'équipe produite est dans equipesFiltreeParAnnee
+
+
+            Assert.IsNotNull(equipesFiltreeParAnnee);
         }
     }
 }

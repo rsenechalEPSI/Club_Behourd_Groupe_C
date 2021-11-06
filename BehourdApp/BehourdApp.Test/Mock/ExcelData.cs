@@ -13,9 +13,9 @@ namespace BehourdApp.Test.Mock
         {
             List<Joueur> joueurs = new List<Joueur>();
 
+            Random r = new Random();
             for (int i = 0; i<nbJoueur; i++)
             {
-                Random r = new Random();
                 int anneeAleatoire = r.Next(1990, 2021);
                 int poidsAleatoire = r.Next(60, 130);
 
