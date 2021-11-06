@@ -20,7 +20,7 @@ namespace BehourdApp.Test
         [TestMethod]
         public void Creation_Duel()
         {
-            
+
             List<Joueur> joueurs = ExcelData.JoueursBuilder(2);
 
             Session session = new Session();
@@ -35,7 +35,7 @@ namespace BehourdApp.Test
             Joueur j2 = joueurs.Last();
             Assert.AreNotSame(j1, j2);
 
-            
+
         }
 
         [TestMethod]
@@ -52,27 +52,8 @@ namespace BehourdApp.Test
 
             Assert.AreEqual(2, equipes.Count);
 
-            Joueur j1 = joueurs.First();
-            Joueur j2 = joueurs.Last();
-            Assert.AreNotSame(j1, j2);
-
-
-        }
-
-        [TestMethod]
-        public void Test_EquilibragePourVoir()
-        {
-
-            List<Joueur> joueurs = ExcelData.JoueursBuilder(10);
-
-
-            Session session = new Session();
-
-            session.Equilibrage(joueurs, new Equipe(), new Equipe());
-
-            List<Equipe> equipes = session.GetEquipes();
-
-            Assert.AreEqual(2, equipes.Count);
+            Assert.AreEqual(10, equipes.First().Joueurs.Count);
+            Assert.AreEqual(10, equipes.Last().Joueurs.Count);
 
             Joueur j1 = joueurs.First();
             Joueur j2 = joueurs.Last();
@@ -80,5 +61,6 @@ namespace BehourdApp.Test
 
 
         }
+
     }
 }
