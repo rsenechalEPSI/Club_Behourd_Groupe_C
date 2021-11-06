@@ -13,8 +13,6 @@ namespace BehourdApp.Test.Mock
         {
             List<Joueur> joueurs = new List<Joueur>();
             Random r = new Random();
-
-            Random r = new Random();
             for (int i = 0; i<nbJoueur; i++)
             {
 

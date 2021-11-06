@@ -68,14 +68,18 @@ namespace BehourdApp.Test
         [TestMethod]
         public void Verification_Equilibrage_Equipes()
         {
-            List<Joueur> joueurs = ExcelData.JoueursBuilder(11);
+            List<Joueur> joueurs = ExcelData.JoueursBuilder(10);
 
-            //Session session = new Session();
+            Session session = new Session();
 
-            //Partie partie = session.CreatePartie(joueurs);
+            Partie partie = session.CreatePartie(joueurs);
 
             // Récupération de toutes les équipes possibles à partir de la liste des joueurs
             List<List<List<Joueur>>> toutesLesEquipesPossibles = GetAllCombos(joueurs);
+
+            //Récupération des équipes crées avec l'algorithme
+            List<Equipe> equipes = session.GetEquipes();
+
 
             // Suppression des équipes dont l'écart de joueurs n'est pas le minimal
             // (si le nombre de joueurs est pair, l'écart est de 0, si il est impair, 1)
@@ -134,6 +138,8 @@ namespace BehourdApp.Test
 
 
             Assert.IsNotNull(equipesFiltreeParAnnee);
+
+
         }
 
     }
