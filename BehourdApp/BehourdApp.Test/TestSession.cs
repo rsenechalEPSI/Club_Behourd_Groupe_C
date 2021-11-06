@@ -20,6 +20,7 @@ namespace BehourdApp.Test
         [TestMethod]
         public void Creation_Duel()
         {
+
             List<Joueur> joueurs = ExcelData.JoueursBuilder(2);
 
             Session session = new Session();
@@ -34,7 +35,7 @@ namespace BehourdApp.Test
             Joueur j2 = joueurs.Last();
             Assert.AreNotSame(j1, j2);
 
-            
+
         }
 
         public static List<List<List<T>>> GetAllCombos<T>(List<T> list)
@@ -134,5 +135,6 @@ namespace BehourdApp.Test
 
             Assert.IsNotNull(equipesFiltreeParAnnee);
         }
+
     }
 }
