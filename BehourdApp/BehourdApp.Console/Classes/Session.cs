@@ -46,7 +46,7 @@ namespace BehourdApp.ConsoleApp.Classes
             return equipes;
         }
 
-        public void Equilibrage(List<Joueur> joueurs, Equipe e1, Equipe e2, int totalMoyenne = 0, bool firstFilter = true, List<Joueur> joueursEquipe1Save = null, List<Joueur> joueursEquipe2Save = null)
+        public void Equilibrage(List<Joueur> joueurs, Equipe e1, Equipe e2, float ecartMoyennePoidsOrigin = 0, float ecartMoyenneAnneeOrigin = 0,  bool firstFilter = true, List<Joueur> joueursEquipe1Save = null, List<Joueur> joueursEquipe2Save = null)
         {
             if (joueurs.Any())
             {
@@ -55,7 +55,8 @@ namespace BehourdApp.ConsoleApp.Classes
 
                 if (firstFilter)
                 {
-                    joueurs = joueurs.OrderBy(j => j.Poids).ToList();
+                    joueurs = joueurs.OrderBy(j => j.Poids).ThenBy(j => j.AnneeAdhesion).ToList();
+
                 }
 
                 int totalJoueurs = joueurs.Count;
@@ -87,45 +88,32 @@ namespace BehourdApp.ConsoleApp.Classes
                     }
                 }
 
-                int moyenneEquipe1 = 0;
-                int moyenneEquipe2 = 0;
-                foreach (Joueur joueur in joueursEquipe1)
+                int sommePoidsEquipe1 = joueursEquipe1.Sum(joueur => joueur.Poids);
+                int sommePoidsEquipe2 = joueursEquipe2.Sum(joueur => joueur.Poids);
+
+                int sommeAdhesionEquipe1 = joueursEquipe1.Sum(joueur => joueur.AnneeAdhesion);
+                int sommeAdhesionEquipe2 = joueursEquipe2.Sum(joueur => joueur.AnneeAdhesion);
+
+                float ecartMoyennePoids = Math.Abs((sommePoidsEquipe1 / joueursEquipe1.Count) - (sommePoidsEquipe2 / joueursEquipe2.Count));
+                float ecartMoyenneAdhesion = Math.Abs((sommeAdhesionEquipe1 / joueursEquipe1.Count) - (sommeAdhesionEquipe2 / joueursEquipe2.Count));
+
+
+                if (ecartMoyennePoidsOrigin != 0 && ecartMoyennePoids < ecartMoyennePoidsOrigin && ecartMoyenneAnneeOrigin != 0 && ecartMoyenneAdhesion < ecartMoyenneAnneeOrigin)
                 {
-                    moyenneEquipe1 += joueur.Poids;
-                }
-                foreach (Joueur joueur in joueursEquipe2)
-                {
-                    moyenneEquipe2 += joueur.Poids;
-                }
-
-                moyenneEquipe1 = moyenneEquipe1 / joueursEquipe1.Count;
-                moyenneEquipe2 = moyenneEquipe2 / joueursEquipe2.Count;
-
-                int newTotalMoyenne = moyenneEquipe1 - moyenneEquipe2;
-
-
-                //A changer parce que c'est de la merde en boîte
-                if (totalMoyenne != 0 && (totalMoyenne - newTotalMoyenne) > -10 && (totalMoyenne - newTotalMoyenne) < 10)
-                {
-                    e1.Joueurs = joueursEquipe1Save;
-                    e2.Joueurs = joueursEquipe2Save;
+                    e1.Joueurs = joueursEquipe1;
+                    e2.Joueurs = joueursEquipe2;
                 }
                 else
                 {
-                    if (newTotalMoyenne > -10 && newTotalMoyenne < 10)
-                    {
-                        e1.Joueurs = joueursEquipe1;
-                        e2.Joueurs = joueursEquipe2;
-                    }
-                    else
-                    {
-                        List<Joueur> equipesConfondues = new List<Joueur>();
-                        joueursEquipe1.ForEach(j => equipesConfondues.Add(j));
-                        joueursEquipe2.ForEach(j => equipesConfondues.Add(j));
+                    List<Joueur> equipesConfondues = new List<Joueur>();
+                    joueursEquipe1.ForEach(j => equipesConfondues.Add(j));
+                    joueursEquipe2.ForEach(j => equipesConfondues.Add(j));
 
-                        Equilibrage(equipesConfondues, e1, e2, newTotalMoyenne, false, joueursEquipe1, joueursEquipe2);
-                    }
+                    Equilibrage(equipesConfondues, e1, e2, ecartMoyennePoids, ecartMoyenneAdhesion, false, joueursEquipe1, joueursEquipe2);
                 }
+
+
+               
 
             }
         }

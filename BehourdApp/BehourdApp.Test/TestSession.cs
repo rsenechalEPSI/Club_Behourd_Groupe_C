@@ -68,7 +68,7 @@ namespace BehourdApp.Test
         [TestMethod]
         public void Verification_Equilibrage_Equipes()
         {
-            List<Joueur> joueurs = ExcelData.JoueursBuilder(10);
+            List<Joueur> joueurs = ExcelData.JoueursBuilder(6);
 
             Session session = new Session();
 
@@ -80,6 +80,7 @@ namespace BehourdApp.Test
             //Récupération des équipes crées avec l'algorithme
             List<Equipe> equipes = session.GetEquipes();
 
+            List<List<Joueur>> listeDesJoueurs = TransformListEquipeInListJoueur(equipes);
 
             // Suppression des équipes dont l'écart de joueurs n'est pas le minimal
             // (si le nombre de joueurs est pair, l'écart est de 0, si il est impair, 1)
@@ -136,9 +137,34 @@ namespace BehourdApp.Test
 
             // Tester si l'équipe produite est dans equipesFiltreeParAnnee
 
-
             Assert.IsNotNull(equipesFiltreeParAnnee);
 
+            bool contiensUneEquipeIdentique = false;
+            
+            foreach(List<List<Joueur>> equipesPossiblesATester in equipesFiltreeParAnnee)
+            {
+                var test = equipesPossiblesATester.All(listeDesJoueurs.Contains);
+                if (equipesPossiblesATester.SequenceEqual(listeDesJoueurs))
+                {
+                    contiensUneEquipeIdentique = true;
+                }
+
+            }
+
+            Assert.IsTrue(contiensUneEquipeIdentique);
+
+        }
+
+        private List<List<Joueur>> TransformListEquipeInListJoueur(List<Equipe> equipes)
+        {
+            List<List<Joueur>> listeDesJoueurs = new List<List<Joueur>>();
+
+            foreach(Equipe equipe in equipes)
+            {
+                listeDesJoueurs.Add(equipe.Joueurs);
+            }
+
+            return listeDesJoueurs;
 
         }
 
