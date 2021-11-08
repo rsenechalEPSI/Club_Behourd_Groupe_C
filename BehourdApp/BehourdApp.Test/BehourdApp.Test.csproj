@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BehourdApp.Console\BehourdApp.ConsoleApp.csproj">
-      <Project>{E027FFDB-898B-42D6-B39B-A518AB9E0DA9}</Project>
+      <Project>{e027ffdb-898b-42d6-b39b-a518ab9e0da9}</Project>
       <Name>BehourdApp.ConsoleApp</Name>
     </ProjectReference>
   </ItemGroup>
