@@ -211,8 +211,8 @@ namespace BehourdApp.Test
 
             Assert.AreEqual(2, equipes.Count);
 
-            Assert.AreEqual(16, equipes[0].Joueurs.Count);
-            Assert.AreEqual(16, equipes[1].Joueurs.Count);
+            Assert.AreEqual(150, equipes[0].Joueurs.Count);
+            Assert.AreEqual(150, equipes[1].Joueurs.Count);
 
             foreach (Joueur joueurEquipe1 in equipes[0].Joueurs)
             {
