@@ -176,9 +176,23 @@ namespace BehourdApp.Test
             Session session = new Session();
 
             Partie partie = session.CreatePartie(joueurs);
+            List<Equipe> equipes = session.GetEquipes();
+            
             Assert.IsNotNull(session);
             Assert.IsNotNull(partie);
-            Assert.IsNotNull(session.GetEquipes());
+
+            Assert.AreEqual(2, equipes.Count);
+
+            Assert.AreEqual(16, equipes[0].Joueurs.Count);
+            Assert.AreEqual(16, equipes[1].Joueurs.Count);
+
+            foreach(Joueur joueurEquipe1 in equipes[0].Joueurs)
+            {
+                foreach (Joueur joueurEquipe2 in equipes[1].Joueurs)
+                {
+                    Assert.AreNotSame(joueurEquipe1, joueurEquipe2);
+                }
+            }
 
         }
     }
