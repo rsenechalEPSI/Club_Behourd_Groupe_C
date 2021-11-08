@@ -46,6 +46,7 @@ namespace BehourdApp.ConsoleApp.Classes
             return equipes;
         }
 
+        //Fonction récursive, qui va être appellée jusqu'a que les deux équipes soient équilibrées par poids et par ancienneté
         public void Equilibrage(List<Joueur> joueurs, Equipe e1, Equipe e2, float ecartMoyennePoidsOrigin = 0, float ecartMoyenneAnneeOrigin = 0,  bool firstFilter = true, List<Joueur> joueursEquipe1Save = null, List<Joueur> joueursEquipe2Save = null)
         {
             if (joueurs.Any())
@@ -53,6 +54,7 @@ namespace BehourdApp.ConsoleApp.Classes
                 List<Joueur> joueursEquipe1 = new List<Joueur>();
                 List<Joueur> joueursEquipe2 = new List<Joueur>();
 
+                //Si c'est le premier appel de la fonction, permet de trier la liste des joueurs par poids, puis par année d'adhésion
                 if (firstFilter)
                 {
                     joueurs = joueurs.OrderBy(j => j.Poids).ThenBy(j => j.AnneeAdhesion).ToList();
@@ -68,6 +70,8 @@ namespace BehourdApp.ConsoleApp.Classes
                     return;
                 }
 
+                //Les joueurs étant triés par poids et par année d'adhésion,
+                //nous allons prendre les plus légers et les moins expérimentés, pour les mettre avec les plus lourds et plus expérimentés
                 while (joueurs.Any())
                 {
                     if (joueursEquipe1.Count < (totalJoueurs / 2))
@@ -97,7 +101,7 @@ namespace BehourdApp.ConsoleApp.Classes
                 float ecartMoyennePoids = Math.Abs((sommePoidsEquipe1 / joueursEquipe1.Count) - (sommePoidsEquipe2 / joueursEquipe2.Count));
                 float ecartMoyenneAdhesion = Math.Abs((sommeAdhesionEquipe1 / joueursEquipe1.Count) - (sommeAdhesionEquipe2 / joueursEquipe2.Count));
 
-
+                //Nous vérifions ici que les écarts de moyenne sont moins importants que les précédents, si ce n'est pas le cas, nous rappellons la fonction
                 if (ecartMoyennePoidsOrigin != 0 && ecartMoyennePoids < ecartMoyennePoidsOrigin && ecartMoyenneAnneeOrigin != 0 && ecartMoyenneAdhesion < ecartMoyenneAnneeOrigin)
                 {
                     e1.Joueurs = joueursEquipe1;
@@ -111,10 +115,6 @@ namespace BehourdApp.ConsoleApp.Classes
 
                     Equilibrage(equipesConfondues, e1, e2, ecartMoyennePoids, ecartMoyenneAdhesion, false, joueursEquipe1, joueursEquipe2);
                 }
-
-
-               
-
             }
         }
     }

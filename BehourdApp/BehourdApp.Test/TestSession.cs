@@ -111,7 +111,7 @@ namespace BehourdApp.Test
 
             }
 
-            // Détermintion des ecarts les plus petits possibles pour les moyennes d'année d'adésion sur les équipes restantes et filtrage
+            // Détermination des ecarts les plus petits possibles pour les moyennes d'année d'adésion sur les équipes restantes et filtrage
             float ecartMoyenneAnneeAdhesionMin = float.MaxValue;
 
             List<List<List<Joueur>>> equipesFiltreeParAnnee = new List<List<List<Joueur>>>();
